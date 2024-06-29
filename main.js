@@ -107,3 +107,79 @@ function editar(titulo) {
         }
     }
 }
+
+//Funcion Actualizar
+function actualizar(i){
+    let libros = JSON.parse(localStorage.getItem("Libros"));
+    libros[i].titulo = document.getElementById("newtitulo").value;
+    libros[i].descripcion = document.getElementById("newdescripcion").value;
+    libros[i].precio = document.getElementById("newprecio").value;
+
+    localStorage.setItem("Libros", JSON.stringify(libros));
+    vistaPrincipal()
+}
+
+//Funcion Eliminar
+function eliminar(titulo){
+    let libros = JSON.parse(localStorage.getItem("Libros"));
+    for(let i=0; i<libros.length; i++){
+        if(libros[i].titulo === titulo){
+            libros.splice(i,1);
+        }
+    }
+
+    localStorage.setItem("Libros", JSON.stringify(libros));
+    leer();
+}
+
+//Funcion para mostrar la interfaz principal
+function vistaPrincipal(){
+    document.getElementById("body").innerHTML =
+    `
+    <div class="row">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Agregar nuevo libro</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="formulario">
+                            <div class="form-group">
+                                <input type="text" id="titulo" class="form-control my-3" placeholder="Ingresar título">
+                            </div>
+                            <div class="form-group">
+                                <textarea id="descripcion" class="form-control my-3" placeholder="Ingresar descripción"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" id="precio" class="form-control my-3" placeholder="Ingresar precio">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Agregar </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <table class="table caption-top bg-light">
+                    <thead>
+                      <tr>
+                        <th scope="col">Título</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Precio</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody">
+                      <tr>
+                        <td>Yo soy Robot</td>
+                        <td>Libro de Sci-Fi</td>
+                        <td>200.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+        `
+leer();
+}
+
+leer();
